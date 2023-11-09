@@ -4,7 +4,13 @@
                 var $dbname="u898308728_bizstock";
                 var $user="u898308728_mister";
                 var $pass="Code@2001";
+                
                 function connect(){
+                    if ($_SERVER['SERVER_NAME']=="localhost") {  
+                        $this->dbname='gestion_stock';
+                        $this->user='root';
+                        $this->pass='';
+                    }
                     try { 
                         $bdd = new PDO("mysql:host=".$this->host.";dbname=".$this->dbname, $this->user, $this->pass);
                         return $bdd;

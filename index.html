@@ -9,11 +9,50 @@
     <link rel="stylesheet" href="style/fontweb/css/fontawesome.css">
     <link rel="stylesheet" href="style/fontweb/css/all.min.css">
     <link rel="stylesheet" href="style/fontweb/css/fontawesome.min.css">
+    <link rel="manifest" href="manifest.json">
     <!-- style -->
     <link rel="stylesheet" href="style/style.css">
     <title>BizStock | Home</title>
 </head>
 <style>
+    .download {
+        width: 100vw;
+        height: 100vh;
+        display: grid;
+        position: fixed;
+        backdrop-filter: blur(10px);
+        z-index: 9999;
+        color: rgb(0, 0, 0);
+        justify-content: center;
+        align-items: center;
+      }
+
+      .download>div {
+        background: white;
+        padding: 20px;
+        width: 40vw;
+        height: auto;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 150%;
+        color: var(--blue);
+        font-weight: bolder;
+      }
+
+      .download>div>div {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        width: 100%;
+        gap: 0%;
+      }
+
+      .download>div>div>button {
+        border-radius: 0%;
+        border: 0px
+      }
+
     /* ----------------------------- */
     .main .left{
     background: url(img/back4.jpg);
@@ -128,7 +167,18 @@
     }
     }
 </style>
+
 <body>
+    <div class="download" id="download" style="display: none;">
+        <div>
+          <p>Installer BizStock pour une meilleure experience</p>
+          <div>
+            <button id="install_button" class="bg-primary">Installer</button>
+            <button onclick='return cancelDown()'>Annuler</button>
+          </div>
+    
+        </div>
+      </div>
     <div class="body w-100">
         <div class="inner_body">
             <div class="inner-container">
@@ -242,6 +292,65 @@
     </div>
     <script src="src/jquery.min.js"></script>
     <script src="src/scripts.js"></script>
+    <script>
+        window.addEventListener("load", (e) => {
+          if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register('./sw.js')
+            console.log("sw loaded");
+          }
+        })
+        $("#download").hide();
+      // Installation application
+      let deferredPrompt; // Allows to show the install prompt
+      const installButton = document.getElementById("install_button");
+    
+      window.addEventListener("beforeinstallprompt", e => {
+        // Prevent Chrome 76 and earlier from automatically showing a prompt
+        e.preventDefault();
+        // Stash the event so it can be triggered later.
+        deferredPrompt = e;
+        // Show the install button
+        // installButton.hidden = false;
+        $("#download").show(500);
+        // installApp()
+        installButton.addEventListener("click", installApp);
+      });
+      function installApp() {
+        // Show the prompt
+        deferredPrompt.prompt();
+        installButton.disabled = true;
+    
+        // Wait for the user to respond to the prompt
+        deferredPrompt.userChoice.then(choiceResult => {
+          if (choiceResult.outcome === "accepted") {
+            console.log("PWA setup accepted");
+            installButton.hidden = true;
+            $.toast({
+              heading: 'Information',
+              text: 'Application installee avec succes',
+              icon: 'info',
+              loader: true,        // Change it to false to disable loader
+              loaderBg: '#131c7a',  // To change the background
+              hideAfter: 5000
+            })
+    
+            $.get(url_api, { "pwa_download-new": "" });
+          } else {
+            console.log("PWA setup rejected");
+          }
+          $("#download").hide(500);
+          installButton.disabled = false;
+          deferredPrompt = null;
+        });
+      }
+      
+      window.addEventListener("appinstalled", evt => {
+        alert("Application installer");
+      });
+      function cancelDown() {
+        $("#download").toggle(500);
+      }
+      </script>
     <script>
         function tab(id) {
             $("#login").hide();
