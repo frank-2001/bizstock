@@ -10,7 +10,7 @@ self.addEventListener("install", event => {
         caches.open(VERSION_APP).then(cache => cache.addAll(STATIC_CACHE_URLS))
     );
 });
-
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC3Y4HizXHhd8LQ+vqufUNZ6AuSWtlOw481WKSmpfxiY2UsY24elLF6GGY31HX9NnZ3tlugoXPL9SaGpwTEw6zJbmEHHWwtq8NWT2lmpAnrflieUOlWlN43x5Dwcq/jl9WnhaORXPHUkNdHOkjYvT94ZjmT+pesVWAwkV40pfLJJh1igTxP8QmktlHbave5PpJLu0khJ9NyIr98xCUj7AHaeY3X1zlGVlKW+dE3ud2kD1ZrOOhdRGaVRSS9vKP8OsN4eWq5AL7pqSLRc48DYEdTPxonLSTBcr8hNNggaF8KqRBzNhzwpAdum6Eubdzz5nt2H2GMgpkww8ez1G6acu7UsbapP7Fw/+8Dh3XWURKZtYR+ciHPIuRfQkIalkrBAEVPF1n43+l4kFQ/Hh3ey13dt/ZcwR2HwCWHinHBGFqs6vSZ29XMSkc8Zdf+kQ8/keKs0twxgD+0MNdL4aGhWbR2fU229E+CAYEuXkjPrugimeihyKOjykroy/yOyBtNoYM= u898308728@fr-int-web991.main-hosting.eu
 self.addEventListener("activate", event => {
     console.log("Service Worker Activation version :" + VERSION_APP);
     clients.claim();

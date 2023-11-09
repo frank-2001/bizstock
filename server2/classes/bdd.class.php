@@ -1,9 +1,9 @@
 <?php
             class bdd{
                 var $host="localhost";
-                var $dbname="gestion_stock";
-                var $user="root";
-                var $pass="";
+                var $dbname="u898308728_bizstock";
+                var $user="u898308728_mister";
+                var $pass="Code@2001";
                 function connect(){
                     try { 
                         $bdd = new PDO("mysql:host=".$this->host.";dbname=".$this->dbname, $this->user, $this->pass);
