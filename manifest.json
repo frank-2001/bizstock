@@ -1,6 +1,6 @@
 {
-    "name":"Gestion de Stock",
-    "short_name":"GeStock",
+    "name":"Biz-Stock",
+    "short_name":"Biz-Stock",
     "description":"Application de gestion de stock",
     "start_url":"/",
     "theme_color": "#b8b8b8",
