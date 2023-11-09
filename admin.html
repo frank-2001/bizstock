@@ -246,6 +246,9 @@
     .container .box-container .box:nth-child(even){
         background:rgb(255, 234, 238);
     }
+    .right-content>div{
+        display: none;
+    }
     .right-content .container-table{
         display: flex;
         flex-direction: column;
@@ -539,7 +542,7 @@
                     </div>
                 </section>
                 <hr>
-                <div class="main-body " id="home">
+                <div class="main-body " id="home" >
                     <div class="container ">
                         <div class="presentation">
                             <div class="ptitle">
@@ -633,7 +636,9 @@
                           </tr>
                         </thead>
                         <tbody id="listMarchandise">
-                          
+                            <tr>
+                                <td colspan="5" class="text-center p-4"><img src="img/chargement.gif"  alt="" srcset=""></td>
+                            </tr>
                           
                         </tbody>
                     </table>
@@ -743,6 +748,9 @@
                         </tbody>
                     </table>
                 </div>
+                <div id="loading" style="display: grid;align-items: center;justify-content: center;height: 50vh;">
+                    <img src="img/chargement.gif" alt="">
+                </div>
                 <div id="oneSuc" style="margin: 0 10%; display: grid;gap: 2vh;">
 
                     <div style="display: flex;align-items: center;justify-content: center;padding: 2vh ;" class="bg-white text-dark">
@@ -851,9 +859,10 @@
     <script src="src/jquery.min.js"></script>
     <script src="src/scripts.js"></script>
     <script>
-        loadDataAdmin()
+    
+        
        function toggle(selector) {
-        $(selector).toggleClass('active');
+            $(selector).toggleClass('active');
        }
         let stock=[]
         let succursale=[]
@@ -934,24 +943,7 @@
                     </tr>
                 `);
             }
-            let bg
-            actualSuc.commande.forEach((e,i) => {
-                if (e.state==0) {
-                    bg="bg-danger"
-                }else{
-                    bg='bg-primary'
-                }
-                $("#commandeSuc").append(`
-                    <tr >
-                        <td class="${bg}">${i+1}</td>
-                        <td class="${bg}">${e.jour}</td>
-                        <td class="${bg}">${e.mse.libele}</td>
-                        <td class="${bg}">${e.quantite}</td>
-                        <td class="${bg}">${e.date_livraison}</td>
-                        <td onclick="valideCommande(${e.id},${e.state})" class="bg-primary"><i class="fa-solid fa-check"></td>
-                    </tr>
-                `);
-            });
+            
 
             $("#facSuc").html('');
             if (actualSuc.facture.length==0) {
@@ -972,6 +964,25 @@
                         <td>${e.client}</td>
                         <td>${total} Fc</td>
                         <td>${e.mse[0].jour}</td>
+                    </tr>
+                `);
+            });
+
+            let bg
+            actualSuc.commande.forEach((e,i) => {
+                if (e.state==0) {
+                    bg="bg-danger"
+                }else{
+                    bg='bg-primary'
+                }
+                $("#commandeSuc").append(`
+                    <tr >
+                        <td class="${bg}">${i+1}</td>
+                        <td class="${bg}">${e.jour}</td>
+                        <td class="${bg}">${e.mse.libele}</td>
+                        <td class="${bg}">${e.quantite}</td>
+                        <td class="${bg}">${e.date_livraison}</td>
+                        <td onclick="valideCommande(${e.id},${e.state})" class="bg-primary"><i class="fa-solid fa-check"></td>
                     </tr>
                 `);
             });
@@ -1082,121 +1093,80 @@
         }
         function load() {
             loadDataAdmin()
-            ese=JSON.parse(localStorage.getItem("sm-entreprise"))
             succursale=JSON.parse(localStorage.getItem("sm-succursale"))
             stock=JSON.parse(localStorage.getItem("sm-stock"))
-            Object.keys(ese).forEach(function(key) {
-                $(".p"+key).text(ese[key]);
-            });
-            $(".pusername").text(user.username);
-            if (stock==null) {
-                window.location.reload()
-            }
-            $("#nbMse").text(stock.length+" produit.s");
-            $("#nbUsers").text(succursale.length+" Succursalle.s");
-
-            // Loading succursale
-            $("#listUsers").html("")
-            
-            succursale.reverse().forEach((e,i) => {
-                let nbCmd=0
-                e.commande.forEach(x => {
-                    if (x.state==0) {
-                        nbCmd++
-                    }
+            setTimeout(() => {
+                Object.keys(ese).forEach(function(key) {
+                    $(".p"+key).text(ese[key]);
                 });
-                let bg=''
-                if (nbCmd>0) {
-                    bg="class='bg-danger'" 
-                }
+                $(".pusername").text(user.username);
+                // if (stock==null) {
+                //     window.location.reload()
+                // }
+                $("#nbMse").text(stock.length+" produit.s");
+                $("#nbUsers").text(succursale.length+" Succursalle.s");
+
+                // Loading succursale
+                $("#listUsers").html("")
                 
-                $("#listUsers").append(`
-                    <tr class='tr' onclick="return oneSuc(${i})">
-                        <td>${i+1}</td>
-                        <td>${e.nomSuccur}</td>
-                        <td>${e.villeSuccur}</td>
-                        <td>${e.communeSuccur}</td>
-                        <td>${e.quartierSuccur}</td>
-                        <td ${bg}>${nbCmd}</td>
-                        <!-- <td><i onclick="return  delUser('${e.username}')" class="fa-solid fa-trash" style="color:red"></i></td> -->
-                    </tr>
-                `)
-            });
-
-            $.post("server2/?stock_entreprise-by",{"id_entreprise":ese.id},
-                function (data, textStatus, jqXHR) {
-                    $("#listMarchandise").html("");
-                    data.data.forEach((e,i) => {
-                        $("#listMarchandise").append(
-
-                            `
-                            <tr>
-                                <th scope="row">${i+1}</th>
-                                <td>${e.libele}</td>
-                                <td>${e.stock} piece.s</td>
-                                <td>${e.prix} Fc</td>
-                                <td>${e.jour}</td>
-                                <!-- <td>${e.prix} Fc</td>
-                                <td><i onclick="return  delMse('${e.libele}')" class="fa-solid fa-trash" style="color:red"></i></td> -->
-                            </tr>
-
-                            `
-                        )
+                succursale.reverse().forEach((e,i) => {
+                    let nbCmd=0
+                    e.commande.forEach(x => {
+                        if (x.state==0) {
+                            nbCmd++
+                        }
                     });
-                },
-                "json"
-            );
-
-            
-
-            // $.getJSON("server/?mouvements-all",
-            //     function (data, textStatus, jqXHR) {
-            //         $("#listMouvement").html("");
-            //         data.data.forEach((e,i) => {
-            //             $("#listMouvement").append(
-
-            //                 `
-            //                 <tr>
-            //                     <td>${i+1}</td>
-            //                     <td>${e.jour}</td>
-            //                     <td>${e.marchandise}</td>
-            //                     <td>${e.user}</td>
-            //                     <td>${e.quantite}</td>
-            //                     <td>${e.prix}</td>
-            //                 </tr>
-
-            //                 `
-            //             )
-            //         });
-            //     },
-            // );
+                    let bg=''
+                    if (nbCmd>0) {
+                        bg="class='bg-danger'" 
+                    }
+                    
+                    $("#listUsers").append(`
+                        <tr class='tr' onclick="return oneSuc(${i})">
+                            <td>${i+1}</td>
+                            <td>${e.nomSuccur}</td>
+                            <td>${e.villeSuccur}</td>
+                            <td>${e.communeSuccur}</td>
+                            <td>${e.quartierSuccur}</td>
+                            <td ${bg}>${nbCmd}</td>
+                            <!-- <td><i onclick="return  delUser('${e.username}')" class="fa-solid fa-trash" style="color:red"></i></td> -->
+                        </tr>
+                    `)
+                });
+                $("#listMarchandise").html("")
+                ese.stock.forEach((e,i)=>{
+                    $("#listMarchandise").append(`
+                        <tr>
+                            <td>${i+1}</td>
+                            <td>${e.libele}</td>
+                            <td>${e.stock}</td>
+                            <td>${e.prix}</td>
+                            <td>${e.jour}</td>
+                        </tr>
+                    `);
+                })
+                
+            }, 1000);
             
         }
-        if (user.fonction!=1) {
-            window.open("user_home.html","_self")
-        }   
+
         console.log(user);
         const tooltips =document.querySelectorAll('.tt')
-        tooltips.forEach(t => {
-          new bootstrap.Tooltip(t)
-        })
+        // tooltips.forEach(t => {
+        //   new bootstrap.Tooltip(t)
+        // })
       
         function UsRemove(){
             d_user.classList.remove('active')
         }
-
-        // Marchandise ou produit
-        
-        // function GoodsRemove(){
-        //     goods.classList.remove('active')
-        // }
-
+        $(".right-content>div").hide();
         function tab(tab) {
-            load()
-            history.pushState({}, null, '?'+tab.substring(1));
             $(".right-content>div").hide();
+            history.pushState({}, null, '?'+tab.substring(1));
+            load()
             $(tab).show();
         }
+        
         let url_=window.location.search
         url_=url_.substring(1)
         url_=url_.split("=")
