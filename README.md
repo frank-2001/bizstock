@@ -1,0 +1,2 @@
+# bizstock
+Gestion de stock
