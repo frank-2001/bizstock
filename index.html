@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="style/bootstrap/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="style/fontweb/css/fontawesome.css">
+    <link rel="stylesheet" href="style/fontweb/css/all.min.css">
+    <link rel="stylesheet" href="style/fontweb/css/fontawesome.min.css">
+    <!-- style -->
+    <link rel="stylesheet" href="style/style.css">
+    <title>ShopManager | Home</title>
+</head>
+<style>
+    /* ----------------------------- */
+    .main .left{
+    background: url(img/back4.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-right: 2px solid black;
+}
+    /* ----------------------------- */
+    *{
+        box-sizing: border-box;
+        margin: 0;
+    }
+    :root{
+    /* --primary:rgba(27, 62, 70, 1); */
+    --primary: rgb(5, 58, 89);
+    --second : rgb(0, 255, 245);
+    --third : rgb(0, 21, 30);
+    --bglv:rgb(87, 142, 174);
+    --bglt:rgb(255, 120, 0);
+    --btnbg: rgb(16, 38, 39);
+    --secondary:rgb(235, 240, 245);
+    --headercolor: rgb(242, 247, 251);
+    --bblack: rgb(0, 0, 0);
+    }
+    .btn-log {
+        --bs-btn-color: #fff!important;
+        --bs-btn-bg: rgb(0, 0, 0)!important;
+        --bs-btn-border-color: rgb(16, 38, 39)!important;
+        --bs-btn-hover-color: #fff!important;
+        --bs-btn-hover-bg: rgb(6, 7, 39)!important;
+        --bs-btn-hover-border-color: rgb(16, 38, 39)!important;
+        --bs-btn-focus-shadow-rgb: 225, 83, 97!important;
+        --bs-btn-active-color: #fff!important;
+        --bs-btn-active-bg: rgb(16, 38, 39)!important;
+        --bs-btn-active-border-color: rgb(16, 38, 39)!important;
+        --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)!important;
+        --bs-btn-disabled-color: #fff!important;
+        --bs-btn-disabled-bg: rgb(16, 38, 39)!important;
+        --bs-btn-disabled-border-color: rgb(16, 38, 39)!important;
+    }
+    .body{
+        position: relative;
+        /* border: 2px solid firebrick; */
+        width: 100%;
+        height: 100%;
+        min-height: 100vh;
+        background: url(img/back1.jpg)no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+    .body .inner_body{
+        position: relative;
+        backdrop-filter: blur(2px);
+        background-color: rgba(5, 34, 54, 0.693);
+        /* background-color: blueviolet; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+        
+        padding: 5vh 0;
+    }
+    .inner_body .inner-container{
+        width: 50%;
+        height: auto;
+        min-width: 100vh;
+        padding: 0;
+        margin: 0;
+        /* border: 2px solid brown; */
+        display: flex;
+        flex-direction:  column;
+        justify-content: center;
+        align-items: center;
+    }
+    .inner-container .head{
+        color: #fff;
+    }
+    .inner-container .head .conn{
+        font-size: 1.2rem;
+        font-weight: lighter;
+        text-align: center;
+    }
+    .formGroup{
+        border: 0px solid fuchsia;
+    }
+    .form-group{
+        margin-top: 1rem;
+    }
+    .form-group label{
+        color: #fff;
+    }
+    .btns{
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    
+    @media (max-width:800px){
+        .inner_body .inner-container{
+            min-width: 100%;
+        }
+        .btns{
+        display: grid;
+        align-items: center;
+        justify-content: space-evenly;
+        gap: 5%;
+    }
+    }
+</style>
+<body>
+    <div class="body w-100">
+        <div class="inner_body">
+            <div class="inner-container">
+                <div class="head">
+                    <h2 class="title">Gestion de Stock</h2>
+                    
+                </div>
+                <div class="formGroup w-75">
+                    <form action="" method="" class="" id="login">
+                        <div style="display: grid;justify-content: center;align-items: center;">
+                            <span class="text-white m-0">Connexion</span>
+                        </div>
+                        <div class="form-group mb-0">
+                            <label for="id">Nom d'utilisateur</label>
+                            <input type="text" class="form-control mb-0" name="username"  placeholder="Nom d'utilisateur" required>    
+                        </div>
+                        <div class="form-group mb-0 ">
+                            <label for="passwordA">Mot de passe</label>
+                            <input type="password" class="form-control" name="password" id="pswrd" placeholder="****" required>
+                            <span id="viewerBtn"></span>
+                        </div>
+                        <div class="login-controls ">
+                            <button id="connect-btn" class=" btn btn-log w-100 " type="submit" >Connexion</button>
+                        </div>
+                        <hr style="color: white;">
+                        <div class="btns">
+                            <button id="connect-btn" class=" btn btn-primary" type="button" onclick="tab('#newcompte')">Nouveau compte</button>
+                            <button id="connect-btn" class=" btn btn-secondary" type="button">Mot de pass oublié?</button>
+                        </div>
+                    </form>
+                    <!-- Nouveau compte -->
+                    <form action="" method="" class="" id="newcompte">
+                        <div style="display: grid;justify-content: center;align-items: center;">
+                            <span class="text-white m-0">Nouveau compte</span>
+                        </div>
+                        <div class="form-group mb-0" style="display: grid;gap: 2%;">
+                            <label for="id">Identité</label>
+                            <input type="text" class="form-control mb-0" name="nom" placeholder="nom " required>
+                            <input type="text" class="form-control mb-0" name="postnom"placeholder="postnom " required>
+                            <input type="text" class="form-control mb-0" name="prenom"  placeholder="Prenom" required>    
+                        </div>
+
+                        <div class="form-group mb-0" style="display: grid;gap: 2%;">
+                            <label for="id">Contact</label>
+                            <input type="tel" class="form-control mb-0" name="telephone"  placeholder="Numero de telephone" required>
+                            <input type="text" class="form-control mb-0" name="mail"  placeholder="Mail " required>  
+                        </div>
+                        <div class="form-group mb-0" style="display: grid;gap: 2%;">
+                            <label for="id">Date de naissance & Sexe</label>
+                            <input type="date" class="form-control mb-0" name="dnaissance"  placeholder="Numero de telephone" required>
+                            <select name="genre" id="" class="form-control form-select mb-0">
+                                <option value="masculin">Masculin</option>
+                                <option value="feminin">Feminin</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group mb-0 " style="display: grid;gap: 2%;">
+                            <label for="">Identifiant</label>
+                            <input type="text" class="form-control" name="username" id="username" placeholder="Nom d'utilisateur" required\ >
+                            <input type="password" class="form-control" name="password" id="pswrd" placeholder="****" required>
+                            <span id="viewerBtn"></span>
+                        </div>
+
+                        <div class="login-controls ">
+                            <button id="connect-btn" class=" btn btn-log w-100 " type="submit" >Valider</button>
+                        </div>
+                        <hr style="color: white;">
+                        <div class="btns">
+                            <button id="connect-btn" class=" btn btn-primary" type="button" onclick="tab('#login')">Vous avez deja un compte</button>
+                            <button id="connect-btn" class=" btn btn-secondary" type="button" >Mot de pass oublié?</button>
+                        </div>
+                    </form>
+
+                    <!-- Nouvelle entreprise -->
+                    <form action="" method="" class="" id="newEntreprise">
+                        <div style="display: grid;justify-content: center;align-items: center;">
+                            <span class="text-white m-0">Nouvelle Entreprise</span>
+                        </div>
+                        <div class="form-group mb-0" style="display: grid;gap: 2%;">
+                            <label for="id">Identification</label>
+                            <input type="text" class="form-control mb-0" name="denomination" placeholder="Nom de l'entreprise" required>
+                            <input type="text" class="form-control mb-0" name="numeroNational	"  placeholder="Numero national">    
+                        </div>
+                        <div class="form-group mb-0" style="display: grid;gap: 2%;">
+                            <label for="id">Date de cration</label>
+                            <input type="date" class="form-control mb-0" name="dateCreatEse"placeholder="postnom " required>
+                        </div>
+
+                        <div class="form-group mb-0" style="display: grid;gap: 2%;">
+                            <label for="id">Adresse</label>
+                            <input type="text" class="form-control mb-0" name="paysEse"  placeholder="Pays" required>
+                            <input type="text" class="form-control mb-0" name="provinceEse"  placeholder="Province" required>
+                            <input type="text" class="form-control mb-0" name="villeEse"  placeholder="Ville" required>
+                            <input type="text" class="form-control mb-0" name="communeEse"  placeholder="Commune" required>  
+                            <input type="text" class="form-control mb-0" name="quartierQuartier"  placeholder="Quartier" required> 
+                        </div>
+                        
+
+                        <div class="login-controls" style="display: grid;gap: 3%;" >
+                            <button id="connect-btn" class=" btn btn-log w-100 " type="submit" >Valider</button>
+                            <button onclick="dec()" class=" btn btn-danger w-100 " type="button" >Deconnexion</button>
+                        </div>
+                    </form>
+                    <div id="loading" style="display: grid;align-items: center;justify-content: center;height: 50vh;">
+                        <img src="img/chargement.gif" alt="">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="src/jquery.min.js"></script>
+    <script src="src/scripts.js"></script>
+    <script>
+        function tab(id) {
+            $("#login").hide();
+            $("#newcompte").hide();
+            $("#newEntreprise").hide();
+            $("#loading").hide();
+            $(id).show();
+        }
+        tab("#login")
+        if (user!=null) {
+            if (user.entreprise==null) {
+                tab("#newEntreprise")
+            } else {
+                if (user.fonction==1) {
+                    window.open("admin.html","_self")
+                }else{
+                    window.open("user_home.html","_self")
+                }
+            }
+        } 
+        let users=[]
+        function load() {
+            $.ajax({
+                type: "POST",
+                url: "server2/?user-all",
+                data: "",
+                dataType: "json",
+                success: function (response) {
+                    users=response.data
+                }
+            });
+        }
+        let connected
+        function connexion(user) {
+            localStorage.removeItem("sm-user")
+            tab("#loading")
+            $.ajax({
+                type: "POST",
+                url: "server2/?user-all",
+                data: "",
+                dataType: "json",
+                success: function (response) {
+                    users=response.data
+                    let state=false
+                    users.forEach(e => {
+                        if (e.username==user["username"] && e.password==user["password"] ) {
+                            connected=e
+                            state=true
+                            localStorage.setItem("sm-user",JSON.stringify(e))
+                            if (e.entreprise==null) {
+                                tab("#newEntreprise")
+                            }else{
+                                $.post("server2/?entreprise-by", {"id":e.entreprise},
+                                    function (data, textStatus, jqXHR) {
+                                        localStorage.setItem("sm-entreprise",JSON.stringify(data.data[0]))
+                                        setTimeout(() => {
+                                            window.location.reload()    
+                                        }, 1000);
+                                        
+                                    },
+                                    "json"
+                                );
+                               
+                            }
+                            
+                        }
+                    });  
+                    if (!state) {
+                        alert("Nom d'utilisateur ou mot de passe incorect")
+                        tab("#login")
+                    }
+                }
+            });
+            
+            
+        }
+        load()
+        $("#login").submit(function (e) { 
+            e.preventDefault();
+            let formData=new FormData(this)
+            connexion({"username":formData.get("username"),"password":formData.get("password")})
+        });
+
+        $("#newEntreprise").submit(function (e) { 
+            e.preventDefault();
+            let formData=new FormData(this)
+            req("server2/?entreprise-new="+connected.username,formData)
+            this.reset()
+            load()
+            tab("#loading")
+            setTimeout(() => {
+                connexion({"username":connected.username,"password":connected.password})               
+            }, 1000);
+        });
+
+        $("#newcompte").submit(function (e) { 
+            e.preventDefault();
+            let formData=new FormData(this)
+            let state=true
+            users.forEach(e => {
+                if (e.username==formData.get("username")) {
+                    state=false
+                    alert("Le nom d'utilisateur "+formData.get("username")+" est utilisé par un autre utilisateur!")
+                }
+            });
+            if (state) {
+                req("server2/?user-new",formData)
+                this.reset()   
+                load()
+                tab("#loading")
+                setTimeout(() => {
+                    alert("veuillez vous connectez maintenant")
+                    window.location.reload()   
+                }, 1000);
+            }
+            
+        });
+
+    </script>
+</body>
+</html>
+

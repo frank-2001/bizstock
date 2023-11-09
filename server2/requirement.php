@@ -1,0 +1,22 @@
+<?php
+	require_once  'classes/bdd.class.php';
+	require_once  'classes/commande.class.php';
+	require_once  'classes/entreprise.class.php';
+	require_once  'classes/facture.class.php';
+	require_once  'classes/fonction.class.php';
+	require_once  'classes/marchandises.class.php';
+	require_once  'classes/mouvements.class.php';
+	require_once  'classes/stock_entreprise.class.php';
+	require_once  'classes/stock_succursale.class.php';
+	require_once  'classes/succursale.class.php';
+	require_once  'classes/user.class.php';
+	require_once  'controllers/commande.controller.php';
+	require_once  'controllers/entreprise.controller.php';
+	require_once  'controllers/facture.controller.php';
+	require_once  'controllers/fonction.controller.php';
+	require_once  'controllers/marchandises.controller.php';
+	require_once  'controllers/mouvements.controller.php';
+	require_once  'controllers/stock_entreprise.controller.php';
+	require_once  'controllers/stock_succursale.controller.php';
+	require_once  'controllers/succursale.controller.php';
+	require_once  'controllers/user.controller.php';

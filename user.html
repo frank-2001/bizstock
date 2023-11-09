@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="style/bootstrap/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="style/fontweb/css/fontawesome.css">
+    <link rel="stylesheet" href="style/fontweb/css/all.min.css">
+    <link rel="stylesheet" href="style/fontweb/css/fontawesome.min.css">
+    <!-- style -->
+    <link rel="stylesheet" href="style/style.css">
+    <title>PayManage | user</title>
+</head>
+<style>
+    /* --------------      STAFF PROPRRTIES       --------------- */
+    .staff-container.active{
+        visibility: visible;
+        /* transition: all ease-in-out 1s; */
+        transition: all ease-in 3s;
+        transform-origin: center;
+        position: fixed;
+        z-index: 5;
+    }
+    .staff-container{
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 105;
+        position: fixed;
+        backdrop-filter: blur(1px);
+        height: 100vh;
+        max-height: 100vh;
+        width: 100%;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        visibility: hidden;
+        transition: .5s ease;
+    }
+    .staff-container .container{
+        background: rgba(255, 255, 255, 0.922);
+        z-index: 3;
+        height: 80vh;
+        width: 500px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 8px rgba(0,0,0,0.4) ;
+        padding: 30px;
+        border-radius: 10px;
+        padding: 1rem  2%;
+        transform-origin: center;
+    }
+    .form-group{
+        /* border: 1px solid red; */
+        height: 360px;
+        overflow-y: auto;
+    }
+    .container .cancel_btn{
+        cursor: pointer;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .container .staff-title{
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+
+    }
+    .container .staff-title h2{
+        font-size: 20px;
+        font-weight: lighter;
+    }
+    .validation-controls{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* ----------------------------- */
+    *{
+        box-sizing: border-box;
+        margin: 0;
+    }
+    :root{
+    /* --primary:rgba(27, 62, 70, 1); */
+    --primary: rgb(5, 58, 89);
+    --sidebar: rgb(5, 58, 89);
+    --second : rgb(0, 255, 245);
+    --third : rgb(0, 21, 30);
+    --bglv:rgb(87, 142, 174);
+    --bglt:rgb(255, 120, 0);
+    --btnbg: rgb(16, 38, 39);
+    --secondary:rgb(235, 240, 245);
+    --headercolor: rgb(242, 247, 251);
+    --bblack: rgb(0, 0, 0);
+    }
+    .btn-log {
+        --bs-btn-color: #fff!important;
+        --bs-btn-bg: rgb(0, 21, 30)!important;
+        --bs-btn-border-color: rgb(16, 38, 39)!important;
+        --bs-btn-hover-color: #fff!important;
+        --bs-btn-hover-bg: rgb(16, 38, 39)!important;
+        --bs-btn-hover-border-color: rgb(16, 38, 39)!important;
+        --bs-btn-focus-shadow-rgb: 225, 83, 97!important;
+        --bs-btn-active-color: #fff!important;
+        --bs-btn-active-bg: rgb(16, 38, 39)!important;
+        --bs-btn-active-border-color: rgb(16, 38, 39)!important;
+        --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)!important;
+        --bs-btn-disabled-color: #fff!important;
+        --bs-btn-disabled-bg: rgb(16, 38, 39)!important;
+        --bs-btn-disabled-border-color: rgb(16, 38, 39)!important;
+    }
+
+    /* ------------- header------------ */
+    .section{
+        position: relative;
+        border: 0px solid saddlebrown;
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+    }
+    .section .siderbar{
+        position: fixed;
+        overflow-y: auto;
+        width: 50px;
+        background: var(--primary);
+        overflow-y: auto;
+        height: 100vh;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 5;
+    }
+    .siderbar ul{
+        margin-top: 3rem;
+        padding-top: 0;
+        padding: 0;
+        margin-left: 0;
+        margin-right: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 70vh;
+    }
+    .siderbar ul li{
+        margin-bottom: .8rem;
+        list-style: none;
+    }
+    /* main */
+    .section .right-content{
+        padding: 2rem 10px;
+        background: darkcyan;
+        min-height: 100vh;
+        width: 100%;
+        margin-left: 50px;
+    }
+    .section .right-content{
+
+        width: 100%;
+        min-height: 100vh;
+        /* background-color: black; */
+        /* padding: 1.5rem 20px; */
+        position: relative;
+    }
+    .right-content .main-header{
+        z-index: 3;
+        top: 0;
+        right: 0;
+        position: fixed;
+        width: calc(100%-50px);
+        align-items: center;
+        height: 2.5rem;
+        padding: 0 4rem;
+        display: flex;
+        background: rgb(242, 247, 251);
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .main-header h2{
+        font-size: 20px;
+        text-transform: uppercase;
+        cursor: pointer;
+    }
+    .main-header .controls{
+        cursor: pointer;
+        height: 30px;
+        width: 30px;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        border-radius: 50%;
+        border: 0px solid  rgb(90, 18, 163);
+    }
+    .right-content .main-body{
+        border: 0px solid darkorange;
+        padding: 5px;
+    }
+    .container-heading{
+        text-align: center;
+        padding-bottom: 15px;
+        text-shadow: 0 5px 10px rgba(0,0,0,.2);
+        font-size: 50px;
+    }
+    .container .box-container{
+        padding-top: 2.5rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+        gap: 15px;
+    }
+    .container .box-container .box{
+        cursor: pointer;
+        align-items: start;
+        box-shadow:0 5px 10px rgba(0,0,0,.2);
+        border-radius: 5px;
+        background-color: #fff;
+        padding: 30px 20px;
+    }
+    .container .box-container .box:hover{
+        transform: scale(1.03);
+        transition: all ease .3s;
+    }
+    .container .box-container .box .title{
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    .container .box-container .box .subtitle{
+        font-size: .8;
+        font-weight: lighter;
+    }
+    .container .box-container .box:nth-child(odd){
+        background: rgb(242, 247, 251);
+    }
+    .container .box-container .box:nth-child(even){
+        background:rgb(255, 234, 238);
+    }
+    .right-content .container-table{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .container-table .title{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+    }
+    .title h2{
+        font-size: 1.2rem;
+    }
+    /* ---------------------------------------------------------------------------------------------------------------- */
+    /*                                       PAGE UTILISATEUR            */
+    .user-container{
+        background: darkcyan;
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .user-container .header{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: rgb(242, 247, 251);
+        display: flex;
+        height: 2.5rem;
+        width: 100vw;
+    }
+    .header .right,
+    .header .left{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .header .right{
+        width: 10%;
+        border: 0px solid rgb(1, 12, 30);
+    }
+    .header .left{
+        width: 90%;
+        border: 0px solid chartreuse;
+    }
+    .header .left h2{
+        font-size: 1.4rem;
+        text-transform: uppercase;
+    }
+    .user_p_body{
+        min-height: 80vh;
+        display: none;
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        padding: 1rem 6%;
+    }
+    .user_p_body .box-item{
+
+        width: 550px;
+    }
+    .user-o {
+        width: 550px;
+        display: flex;
+        margin-bottom: 5px;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 10px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.922);
+        box-shadow: 0 0 8px rgba(0,0,0,0.4) ;
+        transition: all ease-out .5s;
+        transform-origin: center;
+    }
+    .user-o:hover{
+       cursor: pointer;
+    }
+    .user-o .details{
+        display: flex;
+        flex-direction: column;
+
+        border: 0px solid firebrick;
+        width: 80%;
+    }
+    .user-o .details h2{
+        margin: 0;
+        padding: 0;
+        font-size: 1rem;
+    }
+    .user-o .details h2 span{
+        font-weight: bolder;
+        font-size: 1.2rem;
+        color: var(--primary);
+    }
+    .user-o .controls{
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: space-between;
+        border: 0px solid khaki;
+        width: 20%;
+    }
+</style>
+<body>
+
+    <!-- -------------------------------------------- Popup -------------------------- -->
+         <div class="staff-container" id="user_Display">
+            <div class="container h-auto">
+                <div class="cancel_btn" onclick={UsRemove()} id="admin_Cancel">
+                    <span><i class="fas fa-xmark"></i></span>
+                </div>
+                <div class="staff-title">
+                    <h2>Créer un utilisateur</h2>
+                </div>
+                <div class="staff-form h-auto">
+                    <form action="">
+                        <div class="form-group  h-auto ">
+                            <label for=" ">Nom</label>
+                            <input type="text" class="form-control" name=" " id=" " placeholder="" >    
+                            <label for=" ">Mot de pass</label>
+                            <input type="text" class="form-control" name=" " id=" " placeholder="" >    
+                            <label for="" class="form-label">Privilleges</label>
+                            <select class="form-select form-control" name="sexe" >
+                                <option  selected value="admin">Admin</option>
+                                <option value="user">Utilisateur</option>
+                            </select>
+                        </div>
+                        <div class="validation-controls mt-2">
+                            <button id="staff_validation" class=" btn btn-log w-50" type="submit" onclick={UsRemove()} style="color: white;">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+    <!-- -------------------------------------------- Popup -------------------------- -->
+        
+
+        <!-- ---------------- CORPS------------- -->
+        <section class="user-container">
+            <div class="header">
+                <div class="left">
+                    <h2 class="title" >Page Utilisateur</h2>
+                </div>
+                <div class="right">
+                    <button class="btn btn-outline-primary tt" data-bs-placement="right" title="Retour"><i class="fa-solid fa-arrow-left"></i></button>
+                </div>
+            </div>
+            <div class="user_p_body">
+                <div class="box-item">
+                    
+                    <div class="user-o">
+                        <div class="details">
+                            <h2 class="name">Nom : <span>Augustin</span> </h2>
+                            <h2 class="pass">Mot de pass : <span>@*Y*DJHS</span></h2>
+                            <h2 class="privillege">Privillege : <span>Admin</span></h2>
+                        </div>
+                        <div class="controls">
+                            <button class="btn btn-primary tt" id="modify"  data-bs-placement="top" title="Modifier"> <i class="fa-solid fa-edit"></i></button>
+                            <button class="btn btn-danger tt" id="del" data-bs-placement="top" title="Supprimer" > <i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+
+                   
+
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ---------------- CORPS------------- -->
+
+    <script src="style/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script>
+         const tooltips =document.querySelectorAll('.tt')
+        tooltips.forEach(t => {
+          new bootstrap.Tooltip(t)
+        })
+       //  new User
+       let Add_user = document.getElementById('modify')
+        let d_user = document.getElementById('user_Display')
+
+        Add_user.addEventListener('click', ()=>{
+            d_user.classList.add('active')
+        })
+        function UsRemove(){
+            d_user.classList.remove('active')
+        }
+       
+
+        // Marchandise ou produit
+        let goods = document.getElementById('goods_Display')
+        let Add_goods = document.getElementById('Add_goods')
+        
+        Add_goods.addEventListener('click', ()=>{
+            goods.classList.add('active')
+        })
+        function GoodsRemove(){
+            goods.classList.remove('active')
+        }
+
+      
+    </script>
+</body>
+</html>

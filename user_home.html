@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="style/bootstrap/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="style/fontweb/css/fontawesome.css">
+    <link rel="stylesheet" href="style/fontweb/css/all.min.css">
+    <link rel="stylesheet" href="style/fontweb/css/fontawesome.min.css">
+    <!-- style -->
+    <link rel="stylesheet" href="style/style.css">
+    <title>PayManage | utilisateur</title>
+</head>
+<style>
+    /* --------------      STAFF PROPRRTIES       --------------- */
+    .staff-container.active{
+        visibility: visible;
+        /* transition: all ease-in-out 1s; */
+        transition: all ease-in 3s;
+        transform-origin: center;
+        position: fixed;
+        z-index: 5;
+    }
+    .staff-container{
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 105;
+        position: fixed;
+        backdrop-filter: blur(1px);
+        height: 100vh;
+        max-height: 100vh;
+        width: 100%;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        visibility: hidden;
+        transition: .5s ease;
+    }
+    .staff-container .container{
+        background: rgba(255, 255, 255, 0.922);
+        z-index: 3;
+        height: auto;
+        width: 100vw;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 8px rgba(0,0,0,0.4) ;
+        padding: 30px;
+        border-radius: 10px;
+        padding: 1rem  2%;
+        transform-origin: center;
+    }
+    .form-group{
+        /* border: 1px solid red; */
+        height: 360px;
+        overflow-y: auto;
+    }
+    .container .cancel_btn{
+        cursor: pointer;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .container .staff-title{
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+
+    }
+    .container .staff-title h2{
+        font-size: 20px;
+        font-weight: lighter;
+    }
+    .validation-controls{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* ----------------------------- */
+    *{
+        box-sizing: border-box;
+        margin: 0;
+    }
+    :root{
+    /* --primary:rgba(27, 62, 70, 1); */
+    --primary: rgb(5, 58, 89);
+    --sidebar: rgb(5, 58, 89);
+    --second : rgb(0, 255, 245);
+    --third : rgb(0, 21, 30);
+    --bglv:rgb(87, 142, 174);
+    --bglt:rgb(255, 120, 0);
+    --btnbg: rgb(16, 38, 39);
+    --secondary:rgb(235, 240, 245);
+    --headercolor: rgb(242, 247, 251);
+    --bblack: rgb(0, 0, 0);
+    }
+    .btn-log {
+        --bs-btn-color: #fff!important;
+        --bs-btn-bg: rgb(0, 21, 30)!important;
+        --bs-btn-border-color: rgb(16, 38, 39)!important;
+        --bs-btn-hover-color: #fff!important;
+        --bs-btn-hover-bg: rgb(16, 38, 39)!important;
+        --bs-btn-hover-border-color: rgb(16, 38, 39)!important;
+        --bs-btn-focus-shadow-rgb: 225, 83, 97!important;
+        --bs-btn-active-color: #fff!important;
+        --bs-btn-active-bg: rgb(16, 38, 39)!important;
+        --bs-btn-active-border-color: rgb(16, 38, 39)!important;
+        --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125)!important;
+        --bs-btn-disabled-color: #fff!important;
+        --bs-btn-disabled-bg: rgb(16, 38, 39)!important;
+        --bs-btn-disabled-border-color: rgb(16, 38, 39)!important;
+    }
+
+    /* ------------- header------------ */
+    .section{
+        position: relative;
+        border: 0px solid saddlebrown;
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+    }
+    .section .siderbar{
+        position: fixed;
+        overflow-y: auto;
+        width: auto;
+        background: var(--primary);
+        overflow-y: auto;
+        height: 100vh;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 5;
+
+    }
+    .siderbar ul{
+        margin-top: 3rem;
+        padding-top: 0;
+        padding: 0;
+        margin-left: 0;
+        margin-right: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 70vh;
+    }
+    .siderbar ul li{
+        margin-bottom: .8rem;
+        list-style: none;
+    }
+    /* main */
+    .section .right-content{
+        padding: 2rem 10px;
+        background: darkcyan;
+        min-height: 100vh;
+        width: 100%;
+        margin-left: 50px;
+    }
+    .section .right-content{
+
+        width: 100%;
+        min-height: 100vh;
+        /* background-color: black; */
+        /* padding: 1.5rem 20px; */
+        position: relative;
+    }
+    .right-content .main-header{
+        z-index: 3;
+        top: 0;
+        right: 0;
+        position: fixed;
+        width: calc(100%-50px);
+        align-items: center;
+        height: 2.5rem;
+        padding: 0 4rem;
+        display: flex;
+        background: rgb(242, 247, 251);
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .main-header h2{
+        font-size: 20px;
+        text-transform: uppercase;
+        cursor: pointer;
+    }
+    .main-header .controls{
+        display: none;
+        cursor: pointer;
+        height: 30px;
+        width: 30px;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        border-radius: 50%;
+        border: 0px solid  rgb(90, 18, 163);
+    }
+    .right-content .main-body{
+        border: 0px solid darkorange;
+        padding: 5px;
+    }
+    .container-heading{
+        text-align: center;
+        padding-bottom: 15px;
+        text-shadow: 0 5px 10px rgba(0,0,0,.2);
+        font-size: 50px;
+    }
+    .container .box-container{
+        padding-top: 2.5rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+        gap: 15px;
+    }
+    .container .box-container .box{
+        cursor: pointer;
+        align-items: start;
+        box-shadow:0 5px 10px rgba(0,0,0,.2);
+        border-radius: 5px;
+        background-color: #fff;
+        padding: 30px 20px;
+    }
+    .container .box-container .box:hover{
+        transform: scale(1.03);
+        transition: all ease .3s;
+    }
+    .container .box-container .box .title{
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    .container .box-container .box .subtitle{
+        font-size: .8;
+        font-weight: lighter;
+    }
+    .container .box-container .box:nth-child(odd){
+        background: rgb(242, 247, 251);
+    }
+    .container .box-container .box:nth-child(even){
+        background:rgb(255, 234, 238);
+    }
+    .right-content .container-table{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .container-table .title{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+    }
+    .title h2{
+        font-size: 1.2rem;
+    }
+    /* ---------------------------------------------------------------------------------------------------------------- */
+</style>
+<body>
+
+    <!-- -------------------------------------------- Popup -------------------------- -->
+
+          <!-- Produit eleve -->
+          <div class="staff-container" id="mvDisplay">
+            <div class="container h-auto" style="display: grid;">
+                <div class="cancel_btn" onclick="MvRemove(),window.location.reload()" id="admin_Cancel">
+                    <span class="bg-danger p-2 text-white">FERMER</span>
+                </div>
+                <!-- <div class="staff-title">
+                    <h2>Créer un produit</h2>
+                </div> -->
+                <div class="staff-form  h-auto w-100" style="display: flex;gap: 20px;width: 100vw; align-items: flex-start;">
+
+                    <form action="" id="newMouvement" class="w-50 bg-third">
+                        <h4 style="text-align: center;">Marchandises</h4>
+                        <div class="form-group  h-auto ">
+                            <label for=" ">Choisissez un produit</label>
+                            <select class="form-select form-control" name="id_marchandise" id="marchandises" required>
+                            </select>
+                            <div style="display: flex;gap: 2px;">
+                                <div>
+                                    <label for=" ">Quantité</label>
+                                    <input type="number" class="form-control" value="1" name="quantite" id="quantite" placeholder="" required>  
+                                </div>
+                                <div>
+                                    <label for=" ">Prix<span>   
+                                    <input type="number" class="form-control" id="prix" placeholder="Prix" readonly required>
+                                
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="validation-controls mt-2">
+                            <button id="staff_validation" class=" btn btn-log w-50" type="submit" style="color: white;">Enregistrer</button>
+                        </div>
+                    </form>
+                    <form id="newFacture" style="display: grid;align-items: center;max-height: 60vh;overflow: auto;" class="w-50">
+                        <h4 style="text-align: center;">Facture</h4>
+                        <hr>
+                        <div>
+                            <div style="font-weight: bold;display: flex;align-items: center;justify-content: space-between;">
+                               <p>Id Facture : <span id="factureId">-</span></p>
+                               <p id="date">-</p>
+                            </div>
+                            <div style="display: flex;gap: 10px;align-items: center;">
+                                <input type="text" class="form-control" name="client" placeholder="Nom de l'achateur" required>
+                            </div>
+                            <hr>
+                            <div style="display: flex;gap: 10px;align-items: center;">
+                                <label for="">Paiement</label>
+                                <select class="form-select form-control" name="moyen_paiement">
+                                    <option>Comptant</option>
+                                    <option>Credit</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr>
+                        <table class="table" >
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Designation</th>
+                                    <th>Q.</th>
+                                    <th>P.U</th>
+                                    <th>P.T</th>
+                                </tr>
+                            </thead>
+                            <tbody id="listFacture">
+                          
+                            </tbody>
+                            <tr id="total"></tr>
+                        </table>
+                        <div class="validation-controls mt-2">
+                            <button id="staff_validation" class=" btn btn-primary" type="submit" style="color: white;" >Finir</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+        <!-- Produit end -->
+
+        <div class="staff-container" style="display: grid;justify-content: center;" id="oneFact">
+            <div class="container h-auto" style="display: grid;width: 40vw;">
+                <div class="cancel_btn" onclick="$('#oneFact').removeClass('active');">
+                    <span class="bg-danger p-2 text-white">FERMER</span>
+                </div>
+                <div class="staff-form  h-auto">
+                    </form>
+                    <form id="newFacture" style="display: grid;align-items: center;max-height: 100vh;overflow: auto;">
+                        <h4 style="text-align: center;">Facture</h4>
+                        <hr>
+                        <div>
+                            <div style="font-weight: bold;display: flex;align-items: center;justify-content: space-between;">
+                               <span id="fidfac">-</span>
+                               <span id="fdate">-</span>
+                            </div>
+                            <div style="display: flex;gap: 10px;align-items: center;justify-content: space-between;">
+                                <span id="fclient">---</span>
+                                <span id="fpaiement">---</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <table class="table" >
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Designation</th>
+                                    <th>Q.</th>
+                                    <th>P.U</th>
+                                    <th>P.T</th>
+                                </tr>
+                            </thead>
+                            <tbody id="listOneFac">
+                          
+                            </tbody>
+                            <tr id="ftotal"></tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            </div>
+         <!-- super user | Admin -->
+        <div class="staff-container" id="user_Display">
+        <div class="container h-auto">
+            <div class="cancel_btn" onclick={UsRemove()} id="admin_Cancel">
+                <span class="bg-danger p-2 text-white">FERMER</span>
+            </div>
+            <div class="staff-title">
+                <h2>Créer un utilisateur</h2>
+            </div>
+            <div class="staff-form h-auto">
+                <form action="">
+                    <div class="form-group  h-auto ">
+                        <label for=" ">Nom</label>
+                        <input type="text" class="form-control" name=" " id=" " placeholder="" >    
+                        <label for=" ">Mot de pass</label>
+                        <input type="text" class="form-control" name=" " id=" " placeholder="" >    
+                        <label for="" class="form-label">Privilleges</label>
+                        <select class="form-select form-control" name="sexe" >
+                            <option  selected value="admin">Admin</option>
+                            <option value="user">Utilisateur</option>
+                        </select>
+                    </div>
+                    <div class="validation-controls mt-2">
+                        <button id="staff_validation" class=" btn btn-log w-50" type="submit" onclick={UsRemove()} style="color: white;">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+         <!-- super user {Admin} end -->
+    <!-- -------------------------------------------- Popup -------------------------- -->
+        
+
+    <!-- ------------------------------------------------------------------ formulars -->
+        <!-- Produit eleve -->
+        <div class="staff-container" id="goods_Display">
+            <div class="container h-auto">
+                <div class="cancel_btn" onclick={GoodsRemove()} id="admin_Cancel">
+                    <span class="bg-danger p-2 text-white">FERMER</span>
+                </div>
+                <div class="staff-title">
+                    <h2>Créer un produit</h2>
+                </div>
+                <div class="staff-form  h-auto">
+                    <form action="">
+                        <div class="form-group  h-auto ">
+                            <label for=" ">Nom</label>
+                            <input type="text" class="form-control" name=" " id=" " placeholder="" >    
+                            <label for=" ">Quantité</label>
+                            <input type="number" class="form-control" name=" " id=" " placeholder="" >    
+                            <label for=" ">Prix</label>
+                            <input type="text" class="form-control" name=" " id=" " placeholder="" >    
+                        </div>
+                        <div class="validation-controls mt-2">
+                            <button id="staff_validation" class=" btn btn-log w-50" type="submit" onclick={GoodsRemove()} style="color: white;">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Produit end -->
+        <div class="staff-container" id="commande" style="display: grid;justify-content: center;">
+            <div class="container h-auto w-50">
+                <div class="cancel_btn" onclick="$('#commande').removeClass('active')">
+                    <span class="bg-danger p-2 text-white">FERMER</span>
+                </div>
+                <div class="staff-title">
+                    <h2>Passer une commande</h2>
+                </div>
+                <div class="staff-form  h-auto">
+                    <form action="" id="newCommand">
+                        <div class="form-group  h-auto ">
+
+                            <label for=" ">Marchandises</label>
+                            <select name="marchandise" class="form-select form-control" id="mse_ese" required></select>  
+                            <label for=" ">Quantité</label>
+                            <input type="number" class="form-control" name="quantite" id=" " placeholder="" required>    
+                        </div>
+                        <div class="validation-controls mt-2">
+                            <button id="staff_validation" class=" btn btn-log w-50" type="submit" onclick="$('#commande').removeClass('active')" style="color: white;">Valider</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+         <!-- ------------------------------------------------------------------ Mouvement -->
+        <!-- Produit eleve -->
+        <div class="staff-container" id="moov_Display">
+            <div class="container h-auto">
+                <div class="cancel_btn" onclick={MvRemove()} id="admin_Cancel">
+                    <span class="bg-danger p-2 text-white">FERMER</span>
+                </div>
+                <div class="staff-title">
+                    <h2>Effectuer un mouvement</h2>
+                </div>
+                <div class="staff-form  h-auto">
+                    <form action="">
+                        <div class="form-group  h-auto ">
+                            <label for=" ">Nom</label>
+                            <input type="text" class="form-control" name=" " id=" " placeholder="" >    
+                            <label for=" ">Quantité</label>
+                            <input type="number" class="form-control" name=" " id=" " placeholder="" >    
+                            <label for=" ">Prix</label>
+                            <input type="text" class="form-control" name=" " id=" " placeholder="" > 
+                            <select class="form-select form-control" name="sexe" >
+                                <option  selected value="sph">Smartphone</option>
+                                <option value="pc">Pc</option>
+                            </select>   
+                        </div>
+                        <div class="validation-controls mt-2">
+                            <button id="staff_validation" class=" btn btn-log w-50" type="submit" onclick={MvRemove()} style="color: white;">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+        <!-- Produit end -->
+        <!-- ------------------------------------------------------------------ Mouvement -->
+
+
+
+        <!-- ---------------- CORPS------------- -->
+        <div class="section">
+            <!-- sidebar -->
+            <div class="siderbar p-2 mr-4">
+                <div class="list">
+                    <ul>
+                        <li class="tt" onclick="tab('#stock')" data-bs-placement="right" title="Stock">
+                            <button class="btn btn-outline-primary text-primary bg-white" ><i class="fa-solid fa-box"></i></button>
+                        </li>
+                        <li class="tt" id="saleBtn" data-bs-placement="right" title="Effectuer une vente">
+                            <button class="btn btn-outline-primary text-primary bg-white" ><i class="fa-regular fa-plus"></i></button>
+                        </li>
+                        <!-- <span class="btn" style="display: flex;align-items: center;gap: 2px;" onclick="tab('#facturier')"><i class="fa-solid fa-book"></i> Facturier</span>
+                        <span class="btn" style="display: flex;align-items: center;gap: 2px;" onclick="tab('#commandes')"><i class="fa-solid fa-list"></i> Commandes</span>
+                         -->
+                        <li class="tt" id="saleBtn" onclick="tab('#facturier')" data-bs-placement="right" title="Facturier">
+                            <button class="btn btn-outline-primary text-primary bg-white" ><i class="fa-solid fa-book"></i></button>
+                        </li>
+                        <li class="tt" id="saleBtn" data-bs-placement="right" title="Effectuer une commande">
+                            <button class="btn btn-outline-primary text-primary bg-white" onclick="$('#commande').addClass('active');"><i class="fa-solid fa-phone"></i></button>
+                        </li>
+                        <li class="tt" onclick="tab('#commandes')" data-bs-placement="right" title="Les commandes">
+                            <button class="btn btn-outline-primary text-primary bg-white" ><i class="fa-solid fa-list"></i></button>
+                        </li>
+                        <!-- <li class="tt" id="Add_goods" data-bs-placement="right" title="Créer un produit">
+                            <button class="btn btn-outline-primary"><i class="fa-solid fa-cookie"></i></button>
+                        </li> -->
+                       
+                        <li class="tt" data-bs-placement="right" title="Déconnexion" onclick="dec()">
+                            <button class="btn btn-outline text-white bg-danger" style="background: rgb(255, 54, 54);color: white;" > 
+                                <i class="fa-solid fa-right-from-bracket"></i></i>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <!-- sideBar end -->
+
+
+
+            <div class="right-content">
+                <section class="main-header w-100 p-2 h-auto mb-8" style="display: grid;justify-content: center;">
+                    <h2 class="text-center" id="user"></h2>
+                </section>
+                <div class="main-body ">
+                    <div class="container  pb-3">
+                        <!-- <h class="heading">DashBord | Admin</h> -->
+                                       
+                    </div>
+                </div>
+                <div class="container-table pt-4" id="stock">
+                    <h2 class="text-white"> Stock</h2>
+                    <table class="table w-50 table-bordered">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Designation</th>
+                            <th scope="col">Quantite</th>
+                            <th scope="col">Prix</th>
+                          </tr>
+                        </thead>
+                        <tbody id="listStock">
+                            <tr>
+                                <td colspan="4" class="text-center p-4"><img src="img/chargement.gif"  alt="" srcset=""></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="container-table pt-4" id="facturier">
+                    <h2 class="text-white"> Facturier</h2>
+                    <table class="table w-50">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Jour</th>
+                            <th scope="col">Id facture</th>
+                            <th scope="col">Client</th>
+                            
+                            <th scope="col">Produits</th>
+                            <th scope="col">P.T</th>
+                            <th scope="col">Paiement</th>
+                          </tr>
+                        </thead>
+                        <tbody id="listMouvement">
+                            <tr>
+                                <td colspan="7" class="text-center p-4"><img src="img/chargement.gif"  alt="" srcset=""></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="container-table pt-4" id="commandes">
+                    <h2 class="text-white"> Commandes</h2>
+                    <table class="table w-50 table-bordered">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Jour</th>
+                            <th scope="col">Marchandise</th>
+                            <th scope="col">Quantite</th>
+                          </tr>
+                        </thead>
+                        <tbody id="listCommandes">
+                          <tr>
+                            <td colspan="4" class="text-center p-4"><img src="img/chargement.gif"  alt="" srcset=""></td>
+                          </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+
+                
+            </div>
+
+        </div>
+
+
+        <!-- ---------------- CORPS------------- -->
+
+    <script src="style/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="src/jquery.min.js"></script>
+    <script src="src/scripts.js"></script>
+    <script>        
+        let stock_entreprise=[]
+        let stock_succursale=[]
+    
+        $("#newCommand").submit(function (e) { 
+            e.preventDefault();
+            let form = new FormData(this)
+            form.append("jour",new Date().toDateString())
+            form.append("id_user",user.username)
+            form.append("id_succursale",user.id_succursale)
+            req("server/?commande-new",form)
+            setTimeout(() => {
+                tab("#commandes")
+            }, 1000);
+        });
+        let mses=[]
+        function getMse(id) {
+            console.log(succursale);
+            
+            userSuccursale.stock.forEach(e => {
+                if (e.id==id) {
+                    console.log(e);
+                    $("#prix").val(e.mse.prix);
+                }
+            });   
+        }
+        
+        $("#marchandises").change(function (e) { 
+            e.preventDefault();
+            getMse($("#marchandises").val());
+        });
+        let cfac=0
+        let factureId
+        let total=0
+        $("#newMouvement").submit(function (e) { 
+            e.preventDefault();
+            let form=new FormData(this)
+            form.append("jour",new Date().toDateString())
+            form.append("facture",factureId)
+            form.append("user",user.username)
+            form.append("prix",$("#prix").val()*$("#quantite").val())
+            cfac++
+            total+=$("#prix").val()*$("#quantite").val()
+            let prodName="-"
+            userSuccursale.stock.forEach(e => {
+                if (e.id==form.get("id_marchandise")) {
+                    prodName=e.mse.libele
+                }
+            });
+            $("#listFacture").append(`
+                <tr>
+                    <td>${cfac}</td>
+                    <td>${prodName}</td>
+                    <td>${$("#quantite").val()}</td>
+                    <td>${$("#prix").val()} Fc</td>
+                    <td>${$("#prix").val()*$("#quantite").val()} Fc</td>
+                </tr>
+            `);
+            $("#total").html(`
+                
+                    <th></th>
+                    <th>
+                        TOTAL
+                    </th><th></th><th></th>
+                    <th>${total}Fc</th>
+                
+            `);
+            req("server2/?mouvements-new",form)
+            this.reset()
+            
+            setTimeout(() => {
+                load()
+            }, 1000);
+        });
+        $("#newFacture").submit(function (e) { 
+            e.preventDefault();
+            let form=new FormData(this)
+            form.append("user",user.username)
+            form.append("id",factureId)
+            form.append("id_succursale",user.id_succursale)
+            if (cfac>0) {
+                req("server2/?facture-new",form)
+                this.reset()
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1000);
+            }else{
+                alert("Facture vide")
+            }
+            
+        });
+        let factures=[]
+        let succursale=null
+        function load() {
+            loadDataUser()
+            stock_entreprise=JSON.parse(localStorage.getItem("sm-stock"))
+            
+            
+            setTimeout(() => {
+                $("#marchandises").html("")
+                userSuccursale.stock.forEach(element => { 
+                    $("#marchandises").append(`
+                        <option value="${element.id}">${element.mse.libele}</option>                    
+                    `);
+                });
+                if (userSuccursale.stock.length>0) {
+                    $("#prix").val(userSuccursale.stock[0].mse.prix*$("#quantite").val());
+                }
+                console.log(stock_entreprise);
+                $("#mse_ese").html("")
+                stock_entreprise.forEach(element => { 
+                    $("#mse_ese").append(`
+                        <option value="${element.id}">${element.libele}</option>                    
+                    `);
+                });
+
+                $("#listCommandes").html("");
+                userSuccursale.commande.forEach((e,i) => {
+                    let bg=""
+                    if (e.state==0) {
+                        bg="class='bg-danger'"
+                    }
+                    $("#listCommandes").append(`
+                    <tr >
+                        <td ${bg}>${i+1}</td>
+                        <td ${bg}>${e.jour}</td>
+                        <td ${bg}>${e.mse.libele}</td>
+                        <td ${bg}>${e.quantite}</td>
+                    </tr>
+                    `);
+                });
+
+                $("#listStock").html("");
+                userSuccursale.stock.forEach((e,i) => {
+                    
+                    $("#listStock").append(`
+                    <tr >
+                        <td>${i+1}</td>
+                        <td>${e.mse.libele}</td>
+                        <td>${e.quantite}</td>
+                        <td>${e.mse.prix}</td>
+                    </tr>
+                    `);
+                });
+                $("#listMouvement").html("")
+                userSuccursale.facture.forEach((e,i)=>{
+                    let tot=0
+                    e.mse.forEach(x => {
+                        tot+=Number(x.prix)
+                    });
+                    let bg
+                    if (e.moyen_paiement=="Credit") {
+                        bg="class='bg-danger'"
+                    }
+                    $("#listMouvement").append(
+
+                        `
+                        <tr onclick="oneFact(${i})">
+                            <td ${bg}>${i+1}</td>
+                            <td ${bg}>${e.mse[0].jour}</td>
+                            <td ${bg}>${e.id}</td>
+                            <td ${bg}>${e.client}</td>
+                            <td ${bg}>${e.mse.length}</td>
+                            <td ${bg}>${tot}Fc</td>
+                            <td ${bg}>${e.moyen_paiement}</td>
+                        </tr>
+
+                        `
+                    )
+                })
+            }, 1000);
+            
+            // $.post("server2/?facture-by",{"id_succursale":user.id_succursale},
+            //     function (data, textStatus, jqXHR) {
+            //         $("#listMouvement").html("");
+            //         factures=data.data
+            //         data.data.forEach((e,i) => {
+            //             let tot=0
+            //             console.log(e.marchandises);
+            //             e.marchandises.forEach(x => {
+            //                 tot+=Number(x.prix)*Number(x.quantite)
+            //             });
+            //             $("#listMouvement").append(
+
+            //                 `
+            //                 <tr onclick="oneFact(${i})">
+            //                     <td>${i+1}</td>
+            //                     <td>${e.marchandises[0].jour}</td>
+            //                     <td>${e.client}</td>
+            //                     <td>${e.id}</td>
+            //                     <td>${e.marchandises.length}</td>
+            //                     <td>${tot}Fc</td>
+            //                     <td>${e.moyen_paiement}</td>
+            //                 </tr>
+
+            //                 `
+            //             )
+            //         });
+            //     },
+            // );
+            $.get("server/?marchandises-all",
+                function (data, textStatus, jqXHR) {
+
+                    $(".marchandises-all").html("");
+                    data.data.forEach(e => {
+                        console.log(e);
+                        $(".marchandises-all").append(`
+                            <option>${e.libele}</option>
+                        `);
+                    });
+                },
+                "json"
+            );
+            
+            
+        }
+        load()
+        function oneFact(i) {
+            factures=userSuccursale.facture[i]
+            $("#fidfac").text("Id : "+factures.id);
+            $("#fdate").text(factures.mse[0].jour);
+            $("#fclient").text("Client : "+factures.client);
+            $("#fpaiement").text(factures.moyen_paiement);
+            $("#listOneFac").html("");
+            ftotal=0
+            factures.mse.forEach((e,i) => {
+                ftotal+=Number(e.prix)*Number(e.quantite)
+                $("#listOneFac").append(`
+                    <tr>
+                        <td>${i+1}</td>
+                        <td>${e.mse.libele}</td>
+                        <td>${e.quantite}</td>
+                        <td>${e.prix/e.quantite} Fc</td>
+                        <td>${Number(e.prix)}Fc</td>
+                    </tr>
+                `);
+                
+            });
+            $("#ftotal").html(`
+                    
+                        <th></th>
+                        <th>
+                            TOTAL
+                        </th><th></th><th></th>
+                        <th>${ftotal}Fc</th>
+                    
+                `);
+            $("#oneFact").addClass('active');
+        }
+
+
+        const tooltips =document.querySelectorAll('.tt')
+        tooltips.forEach(t => {
+          new bootstrap.Tooltip(t)
+        })
+        
+        // Mouvement
+        let mvDisplay = document.getElementById('mvDisplay')
+        let doMv =document.getElementById('saleBtn')
+        doMv.addEventListener('click', ()=>{
+            mvDisplay.classList.add('active')
+            factureId=userSuccursale.id+""+new Date().getTime()
+            $("#factureId").text(factureId);
+            $("#date").text(new Date().toDateString());
+        })
+        function MvRemove(){
+            mvDisplay.classList.remove('active')
+        }
+
+
+
+        // Marchandise ou produit
+        let goods = document.getElementById('goods_Display')
+        let Add_goods = document.getElementById('Add_goods')
+        
+        // Add_goods.addEventListener('click', ()=>{
+        //     goods.classList.add('active')
+        // })
+        function GoodsRemove(){
+            goods.classList.remove('active')
+        }
+        function tab(tab) {
+            load()
+            history.pushState({}, null, '?'+tab.substring(1));
+            $(".right-content>div").hide();
+            $(tab).show();
+        }
+        let url_=window.location.search
+        url_=url_.substring(1)
+        url_=url_.split("=")
+        if(url_[0]=="oneSuc"){
+            oneSuc(url_[1])
+        }else if (url_[0]!="") {
+            tab("#"+url_[0])
+        }else{
+            tab("#facturier")
+        }
+        
+      
+    </script>
+
+</body>
+</html>

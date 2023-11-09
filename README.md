@@ -1,2 +1,1 @@
-# bizstock
-Gestion de stock
+"# StockManage" 
